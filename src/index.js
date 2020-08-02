@@ -1,12 +1,17 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { Telegraf } from 'telegraf';
+import { Telegraf, Stage, session } from 'telegraf';
+import scenes from './scenes';
 
 require('dotenv').config();
 
+const stage = new Stage(scenes);
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('Hello world!'));
+bot.use(session());
+bot.use(stage.middleware());
+
+bot.start((ctx) => ctx.scene.enter('setUserRole'));
 bot.help((ctx) => ctx.reply('Напиши /start'));
 
 bot.startPolling();
