@@ -12,7 +12,8 @@ auth.enter((ctx) => {
 
 auth.on('contact', async (ctx) => {
   if (ctx.session.user && ctx.session.user.role === 'customer') {
-    return ctx.reply('Вы успешно авторизировались');
+    await ctx.reply('Вы успешно авторизировались', Markup.removeKeyboard().extra());
+    await ctx.scene.enter('getAlbum');
   }
 });
 
