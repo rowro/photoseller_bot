@@ -12,7 +12,10 @@ const replyWithAlbum = async (ctx, date = '2020-08-28') => {
     media: url,
     type: 'photo',
   }));
-  await ctx.reply(`Вот фотографии которые были сделаны ${date}`);
+  await ctx.reply(`Вот фотографии которые были сделаны ${date}`, Markup
+    .keyboard(['Изменить роль'])
+    .resize()
+    .extra());
   await ctx.replyWithMediaGroup(photos);
 };
 
@@ -38,6 +41,10 @@ getAlbum.enter(async (ctx) => {
 getAlbum.action(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/, async (ctx) => {
   const date = ctx.match[0];
   return replyWithAlbum(ctx, date);
+});
+
+getAlbum.hears('Изменить роль', async (ctx) => {
+  await ctx.scene.enter('setUserRole');
 });
 
 export default getAlbum;

@@ -11,7 +11,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.use(session());
 bot.use(stage.middleware());
 
-bot.start((ctx) => ctx.scene.enter('setUserRole'));
+bot.start((ctx) => ctx.scene.enter('auth'));
 bot.help((ctx) => ctx.reply('Напиши /start'));
 
 bot.startPolling();

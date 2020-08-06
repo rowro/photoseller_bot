@@ -16,13 +16,13 @@ setUserRole.enter((ctx) => {
 });
 
 setUserRole.action('photograph', (ctx) => {
-  ctx.session.user.role = 'client';
-  return ctx.reply('Добро пожаловать, фотограф!');
+  ctx.session.user.role = 'photograph';
+  return ctx.scene.enter('addAlbum');
 });
 
 setUserRole.action('customer', (ctx) => {
   ctx.session.user.role = 'customer';
-  return ctx.scene.enter('auth');
+  return ctx.scene.enter('getAlbum');
 });
 
 setUserRole.on('message', async (ctx) => ctx.reply('Такой роли нет =('));

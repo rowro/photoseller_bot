@@ -11,10 +11,8 @@ auth.enter((ctx) => {
 });
 
 auth.on('contact', async (ctx) => {
-  if (ctx.session.user && ctx.session.user.role === 'customer') {
-    await ctx.reply('Вы успешно авторизировались', Markup.removeKeyboard().extra());
-    await ctx.scene.enter('getAlbum');
-  }
+  await ctx.reply('Вы успешно авторизировались', Markup.removeKeyboard().extra());
+  await ctx.scene.enter('setUserRole');
 });
 
 export default auth;
